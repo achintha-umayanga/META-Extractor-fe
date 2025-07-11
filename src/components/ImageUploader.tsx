@@ -1,9 +1,23 @@
 import { useState } from 'react';
 import { uploadImage } from '../services/mediaService';
 
+// Define a type for the metadata structure matching the backend response
+interface Metadata {
+  fileName: string;
+  metadata: {
+    filePath?: string;
+    make?: string;
+    model?: string;
+    dateTimeOriginal?: string;
+    latitude?: number | null;
+    longitude?: number | null;
+    additionalMetadata: Record<string, unknown>;
+  };
+}
+
 export default function ImageUploader() {
   const [file, setFile] = useState<File | null>(null);
-  const [metadata, setMetadata] = useState<any>(null);
+  const [metadata, setMetadata] = useState<Metadata | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,24 +57,27 @@ export default function ImageUploader() {
 
       {error && <div className="error">{error}</div>}
 
+      {/* Only render metadata section if metadata is not null */}
       {metadata && (
         <div className="metadata-results">
-          <h3>Metadata for {metadata.FileName}</h3>
+          <h3>Metadata for {metadata.fileName}</h3>
           <div>
-            <strong>Camera:</strong> {metadata.Metadata.Make} {metadata.Metadata.Model}
+            <strong>Camera:</strong> {metadata.metadata.make || 'N/A'} {metadata.metadata.model || ''}
           </div>
           <div>
-            <strong>Date Taken:</strong> {metadata.Metadata.DateTaken}
+            <strong>Date Taken:</strong> {metadata.metadata.dateTimeOriginal || 'N/A'}
           </div>
-          {metadata.Metadata.Latitude && metadata.Metadata.Longitude && (
+          {metadata.metadata.latitude && metadata.metadata.longitude && (
             <div>
-              <strong>Location:</strong> {metadata.Metadata.Latitude}, {metadata.Metadata.Longitude}
+              <strong>Location:</strong> {metadata.metadata.latitude}, {metadata.metadata.longitude}
             </div>
           )}
-          
+          <div>
+            <strong>File Path:</strong> {metadata.metadata.filePath || 'N/A'}
+          </div>
           <h4>All Metadata:</h4>
           <ul>
-            {Object.entries(metadata.Metadata.AdditionalMetadata).map(([key, value]) => (
+            {Object.entries(metadata.metadata.additionalMetadata || {}).map(([key, value]) => (
               <li key={key}>
                 <strong>{key}:</strong> {String(value)}
               </li>
