@@ -1,30 +1,24 @@
-// src/App.tsx
-import { useState } from 'react';
+// import { useState } from 'react';
 import ImageUploader from './components/ImageUploader';
 import './App.css';
 
 // Define types for the metadata response
-interface ImageMetadata {
-  FilePath: string;
-  Make?: string;
-  Model?: string;
-  DateTaken?: string;
-  Latitude?: number;
-  Longitude?: number;
-  AdditionalMetadata: Record<string, string>;
-}
+// interface ImageMetadata {
+//   FilePath: string;
+//   Make?: string;
+//   Model?: string;
+//   DateTaken?: string;
+//   Latitude?: number;
+//   Longitude?: number;
+//   AdditionalMetadata: Record<string, string>;
+// }
 
-interface UploadResponse {
-  FileName: string;
-  Metadata: ImageMetadata;
-}
+// interface UploadResponse {
+//   FileName: string;
+//   Metadata: ImageMetadata;
+// }
 
 function App() {
-  const [recentUploads, setRecentUploads] = useState<UploadResponse[]>([]);
-
-  const handleUploadSuccess = (result: UploadResponse) => {
-    setRecentUploads(prev => [result, ...prev.slice(0, 4)]);
-  };
 
   return (
     <div className="app">
@@ -35,10 +29,10 @@ function App() {
 
       <main className="app-content">
         <div className="upload-section">
-          <ImageUploader onUploadSuccess={handleUploadSuccess} />
+          <ImageUploader />
         </div>
 
-        {recentUploads.length > 0 && (
+        {/* {recentUploads.length > 0 && (
           <div className="recent-uploads">
             <h2>Recent Uploads</h2>
             <div className="upload-grid">
@@ -63,7 +57,7 @@ function App() {
               ))}
             </div>
           </div>
-        )}
+        )} */}
       </main>
 
       <footer className="app-footer">
