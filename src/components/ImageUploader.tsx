@@ -58,15 +58,19 @@ export default function ImageUploader() {
   };
 
   return (
-    <div className="image-uploader">
+    <div className="image-uploader flex flex-col items-center">
       {/* <h2>Image Metadata Extractor</h2> */}
-      <form onSubmit={handleSubmit} className='m-4'>
-        <input 
-          type="file" 
-          accept="image/*" 
-          onChange={handleFileChange}
-        />
-        <button type="submit" disabled={!file || isLoading}>
+      <form onSubmit={handleSubmit} className='m-4 flex flex-row items-center gap-4'>
+        <label className="custom-file-upload cursor-pointer w-64 flex items-center justify-center px-4 py-2 rounded bg-gray-800 text-white border border-gray-300 transition-colors duration-150 hover:bg-gray-700 focus:bg-gray-700">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          {file ? file.name : "Choose File"}
+        </label>
+        <button type="submit" disabled={!file || isLoading} className="px-4 py-2 w-64 rounded bg-gray-800 text-white border border-gray-300 transition-colors duration-150 hover:bg-gray-700 focus:bg-gray-700">
           {isLoading ? 'Processing...' : 'Extract Metadata'}
         </button>
       </form>
