@@ -60,8 +60,8 @@ function App() {
         )} */}
       </main>
 
-      <footer className="app-footer">
-        <p>© {new Date().getFullYear()} Image Metadata Extractor</p>
+      <footer className="app-footer mt-4">
+        <p>© {new Date().getFullYear()} Image Metadata Extractor - <a href="https://github.com/achintha-umayanga" target="_blank" rel="noopener noreferrer">Achintha Umayanga</a></p>
       </footer>
     </div>
   );
